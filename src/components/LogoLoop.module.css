@@ -1,0 +1,77 @@
+.logoloop {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  user-select: none;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-inline: calc(var(--logoloop-gap, 40px) / 2);
+  flex: none;
+  font-size: var(--logoloop-logoHeight, 28px);
+  line-height: 1;
+  color: var(--color-fg, #111);
+}
+
+.node {
+  display: inline-flex;
+  align-items: center;
+}
+
+.node svg {
+  width: var(--logoloop-logoHeight, 28px);
+  height: var(--logoloop-logoHeight, 28px);
+  display: block;
+}
+
+.title {
+  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  color: var(--color-muted, #666);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.scaleHover .item {
+  transition: transform 0.25s ease, color 0.25s ease, opacity 0.25s ease;
+  opacity: 0.55;
+}
+
+.scaleHover .item:hover {
+  opacity: 1;
+  color: var(--color-fg, #111);
+}
+
+.fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 clamp(48px, 12%, 140px),
+    #000 calc(100% - clamp(48px, 12%, 140px)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 clamp(48px, 12%, 140px),
+    #000 calc(100% - clamp(48px, 12%, 140px)),
+    transparent 100%
+  );
+}

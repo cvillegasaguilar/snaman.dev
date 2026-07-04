@@ -1,0 +1,23 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid var(--color-glass-border);
+  background: transparent;
+  color: var(--color-fg);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.toggle:hover {
+  background: color-mix(in srgb, var(--color-fg) 8%, transparent);
+  transform: translateY(-1px);
+}
+
+.toggle svg {
+  display: block;
+}

@@ -1,0 +1,206 @@
+.wrapper {
+  position: fixed;
+  top: 1.25rem;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-inline: 1rem;
+  pointer-events: none;
+}
+
+.glass {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 999px;
+  width: 100%;
+  max-width: 640px;
+  justify-content: space-between;
+
+  /* liquid glass effect */
+  background: var(--color-glass);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--color-glass-border);
+  box-shadow:
+    0 8px 32px rgba(17, 17, 17, 0.08),
+    inset 0 1px 0 var(--color-glass-highlight);
+}
+
+.brand {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-fg);
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  transition: color 0.2s ease;
+}
+
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 1px;
+  background: var(--color-fg);
+  transition: width 0.25s ease;
+}
+
+.link:hover {
+  color: var(--color-fg);
+}
+
+.link:hover::after {
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ---------- Mobile menu button ---------- */
+.menuButton {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--color-glass-border);
+  background: transparent;
+  cursor: pointer;
+  color: var(--color-fg);
+}
+
+.burger,
+.burger::before,
+.burger::after {
+  content: "";
+  display: block;
+  width: 16px;
+  height: 1.6px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+.burger {
+  position: relative;
+}
+
+.burger::before {
+  position: absolute;
+  top: -5px;
+  left: 0;
+}
+
+.burger::after {
+  position: absolute;
+  top: 5px;
+  left: 0;
+}
+
+.burgerOpen {
+  background: transparent;
+}
+
+.burgerOpen::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.burgerOpen::after {
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+/* ---------- Mobile dropdown panel ---------- */
+.mobileMenu {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 640px;
+  margin-top: 0.6rem;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--color-glass);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--color-glass-border);
+  box-shadow: 0 8px 32px rgba(17, 17, 17, 0.08);
+
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    max-height 0.3s ease,
+    opacity 0.2s ease,
+    transform 0.25s ease;
+
+  /* hidden from layout on desktop */
+  display: none;
+}
+
+.mobileMenuOpen {
+  max-height: 320px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobileLinks {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobileLink {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  color: var(--color-fg);
+  transition: background 0.2s ease;
+}
+
+.mobileLink:hover {
+  background: var(--color-card);
+}
+
+@media (max-width: 640px) {
+  .links {
+    display: none;
+  }
+
+  .menuButton {
+    display: flex;
+  }
+
+  .mobileMenu {
+    display: block;
+  }
+}
+
