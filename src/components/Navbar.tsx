@@ -30,7 +30,7 @@ export default function Navbar() {
     <header className={styles.wrapper}>
       <nav className={styles.glass} aria-label="Navegación principal">
         <Link className={styles.brand} to="/" onClick={() => setOpen(false)}>
-          snaman.dev
+          
         </Link>
 
         <ul className={styles.links}>
