@@ -3,12 +3,6 @@
 Sitio personal y archivo digital donde reúno proyectos, ideas y notas.
 Single-page application construida con React, TypeScript y Vite.
 
-## Descripción
-
-Página de una sola vista con navegación fija, carrusel de tecnologías, tema
-claro/oscuro persistente y una sección de proyectos. El código está organizado
-en componentes reutilizables con estilos aislados mediante CSS Modules.
-
 ## Stack
 
 - React 18 + TypeScript
