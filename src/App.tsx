@@ -49,10 +49,10 @@ const projects = [
     to: "/mapa",
   },
   {
-    title: "Lorem ipsum",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    tag: "Próximamente",
-    soon: true,
+    title: "Encuentra el país",
+    desc: "Un mini juego para poner a prueba tu geografía en el mapa mundial.",
+    tag: "Juego",
+    to: "/geografia",
   },
   {
     title: "Lorem ipsum",

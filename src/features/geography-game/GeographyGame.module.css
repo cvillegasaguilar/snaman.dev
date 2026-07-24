@@ -1,0 +1,820 @@
+.page {
+  --game-pending: #d6d6d2;
+  --game-context: #eeeeeb;
+  --game-border: #73736f;
+  --game-correct: #347a4c;
+  --game-skipped: #c08a13;
+  --game-skipped-line: rgba(57, 40, 2, 0.45);
+  --game-wrong: #b42318;
+
+  min-height: 100%;
+}
+
+.pagePlaying {
+  height: 100dvh;
+  overflow: hidden;
+}
+
+:global(:root[data-theme="dark"]) .page {
+  --game-pending: #3a3a3e;
+  --game-context: #242428;
+  --game-border: #8f8f96;
+  --game-correct: #55a66f;
+  --game-skipped: #d5a43a;
+  --game-skipped-line: rgba(31, 22, 2, 0.55);
+  --game-wrong: #f97066;
+}
+
+.skipLink {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  background: var(--color-fg);
+  color: var(--color-bg);
+  font-size: 0.875rem;
+  transform: translateY(-180%);
+  transition: transform 0.2s ease;
+}
+
+.skipLink:focus-visible {
+  transform: translateY(0);
+  outline: 2px solid var(--color-bg);
+  outline-offset: 2px;
+}
+
+.main {
+  width: min(100%, 1180px);
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 7rem 1.5rem 4rem;
+}
+
+.mainPlaying {
+  display: flex;
+  height: 100dvh;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+  padding-block: 5.5rem 1rem;
+}
+
+.mainPlaying .backLink {
+  flex: none;
+  margin-bottom: 0.5rem;
+}
+
+.backLink {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 2.5rem;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.backLink:hover {
+  color: var(--color-fg);
+}
+
+.backLink:focus-visible,
+.primaryButton:focus-visible,
+.secondaryButton:focus-visible,
+.tertiaryButton:focus-visible,
+.mapViewport:focus-visible {
+  outline: 2px solid var(--color-fg);
+  outline-offset: 3px;
+}
+
+.centeredPanel {
+  width: min(100%, var(--max-width));
+  margin: 3rem auto 0;
+  padding: 3.5rem 0;
+  text-align: center;
+  border-block: 1px solid var(--color-line);
+}
+
+.eyebrow {
+  color: var(--color-muted);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.displayTitle,
+.countryQuestion {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.displayTitle {
+  margin-top: 0.45rem;
+  font-size: clamp(2.25rem, 7vw, 4rem);
+}
+
+.introText {
+  max-width: 52ch;
+  margin: 1.25rem auto 0;
+  color: var(--color-muted);
+  font-size: 1.05rem;
+  text-wrap: pretty;
+}
+
+.introFact {
+  width: min(100%, 19rem);
+  margin: 2rem auto;
+  padding-block: 1rem;
+  border-block: 1px solid var(--color-line);
+}
+
+.introFact div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.introFact dt {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.introFact dd {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.primaryButton,
+.secondaryButton,
+.tertiaryButton {
+  min-height: 42px;
+  border: 1px solid var(--color-line);
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.primaryButton {
+  padding: 0.65rem 1.5rem;
+  border-color: var(--color-fg);
+  background: var(--color-fg);
+  color: var(--color-bg);
+}
+
+.primaryButton:hover {
+  opacity: 0.84;
+  transform: translateY(-1px);
+}
+
+.secondaryButton,
+.tertiaryButton {
+  padding: 0.6rem 1.2rem;
+  background: transparent;
+  color: var(--color-fg);
+}
+
+.secondaryButton:hover,
+.tertiaryButton:hover {
+  border-color: var(--color-fg);
+  background: color-mix(in srgb, var(--color-fg) 6%, transparent);
+}
+
+.primaryButton:disabled,
+.secondaryButton:disabled,
+.tertiaryButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+  transform: none;
+}
+
+.datasetNote {
+  max-width: 48ch;
+  margin: 1.5rem auto 0;
+  color: var(--color-muted);
+  font-size: 0.78rem;
+  text-wrap: pretty;
+}
+
+.gameLayout {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow: hidden;
+}
+
+.gameTopbar {
+  display: grid;
+  min-width: 0;
+  flex: none;
+  grid-template-columns: minmax(13rem, 0.9fr) minmax(22rem, 1.6fr) auto;
+  gap: 1rem;
+  align-items: center;
+  padding-block: 0.65rem;
+  border-block: 1px solid var(--color-line);
+}
+
+.questionHeader {
+  min-width: 0;
+  text-align: left;
+}
+
+.countryQuestion {
+  margin-top: 0.15rem;
+  overflow-wrap: anywhere;
+  font-size: clamp(1.5rem, 3vw, 2.35rem);
+}
+
+.feedback {
+  min-height: 1.6em;
+  margin-top: 0.15rem;
+  color: var(--color-muted);
+  font-size: 0.78rem;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: minmax(9rem, 1.6fr) repeat(3, minmax(5.5rem, 1fr));
+  border-block: 1px solid var(--color-line);
+}
+
+.gameTopbar .stats {
+  border-block: 0;
+}
+
+.stats div {
+  min-width: 0;
+  padding: 0.9rem 1rem;
+  text-align: center;
+}
+
+.stats div + div {
+  border-left: 1px solid var(--color-line);
+}
+
+.stats dt,
+.resultsGrid dt {
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.stats dd,
+.resultsGrid dd {
+  margin-top: 0.2rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.mapSection {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  border-radius: 20px;
+  background: var(--color-card);
+}
+
+.mapLoading {
+  display: grid;
+  min-height: 0;
+  flex: 1;
+  place-items: center;
+  border: 1px solid var(--color-line);
+  border-radius: 20px;
+  color: var(--color-muted);
+}
+
+.mapToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: none;
+  gap: 1rem;
+  padding: 0.55rem 0.85rem;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.mapHeading {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  line-height: 1.2;
+}
+
+.mapHint {
+  color: var(--color-muted);
+  font-size: 0.78rem;
+  text-align: right;
+  text-wrap: pretty;
+}
+
+.mapViewport {
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+  overflow: hidden;
+  background:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+  cursor: grab;
+  overscroll-behavior: contain;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mapViewportDragging,
+.mapViewportDragging .countryGroup {
+  cursor: grabbing;
+}
+
+.worldMap {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: color-mix(in srgb, var(--color-card) 92%, var(--color-bg));
+}
+
+.countryGroup {
+  cursor: inherit;
+}
+
+.countryGroup:focus {
+  outline: none;
+}
+
+.country {
+  stroke: var(--game-border);
+  stroke-width: 0.65;
+  transition: opacity 0.18s ease;
+}
+
+.countryPending {
+  fill: var(--game-pending);
+}
+
+.countryCorrect {
+  fill: var(--game-correct);
+}
+
+.countrySkipped {
+  fill: url("#skipped-pattern");
+}
+
+.countryGroup:hover .countryPending {
+  fill: color-mix(in srgb, var(--game-pending) 70%, var(--color-fg));
+  stroke: var(--color-fg);
+}
+
+.countryGroup:focus-visible .country {
+  stroke: var(--color-fg);
+  stroke-width: 2.5;
+}
+
+.countryGroup[aria-disabled="true"] {
+  cursor: inherit;
+}
+
+.contextCountry {
+  fill: var(--game-context);
+  stroke: var(--color-line);
+  stroke-width: 0.55;
+  pointer-events: none;
+}
+
+.smallCountryHitArea {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 16;
+  pointer-events: stroke;
+}
+
+.wrongOverlay {
+  fill: var(--game-wrong);
+  stroke: var(--game-wrong);
+  stroke-width: 1;
+  pointer-events: none;
+  animation: wrong-flash 0.36s ease-out both;
+}
+
+.skippedPatternBase {
+  fill: var(--game-skipped);
+}
+
+.skippedPatternLine {
+  stroke: var(--game-skipped-line);
+  stroke-width: 3;
+}
+
+@keyframes wrong-flash {
+  0% {
+    opacity: 0;
+  }
+
+  32% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.mapFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex: none;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+  list-style: none;
+  color: var(--color-muted);
+  font-size: 0.75rem;
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.legendSwatch {
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 1px solid var(--game-border);
+  border-radius: 3px;
+}
+
+.legendPending {
+  background: var(--game-pending);
+}
+
+.legendCorrect {
+  background: var(--game-correct);
+}
+
+.legendSkipped {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--game-skipped),
+    var(--game-skipped) 3px,
+    var(--game-skipped-line) 3px,
+    var(--game-skipped-line) 5px
+  );
+}
+
+.legendWrong {
+  background: var(--game-wrong);
+}
+
+.resultsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
+  margin: 2rem auto;
+  border-block: 1px solid var(--color-line);
+}
+
+.resultsGrid div {
+  min-width: 0;
+  padding: 1rem 0.75rem;
+}
+
+.resultsGrid div + div {
+  border-left: 1px solid var(--color-line);
+}
+
+.resultsGrid .accuracyResult {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--color-line);
+  border-left: 0;
+}
+
+.accuracyResult dd {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.resultActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+@media (max-width: 760px) {
+  .pagePlaying {
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .main {
+    padding-inline: 1rem;
+  }
+
+  .mainPlaying {
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+    padding-block:
+      5rem
+      calc(4rem + env(safe-area-inset-bottom));
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  .backLink {
+    margin-bottom: 1.5rem;
+  }
+
+  .mainPlaying .backLink {
+    display: none;
+  }
+
+  .gameLayout {
+    min-height: 0;
+    flex: 1;
+    gap: 0.5rem;
+    overflow: hidden;
+  }
+
+  .gameTopbar {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.35rem;
+    padding-block: 0.35rem;
+  }
+
+  .gameTopbar .eyebrow {
+    display: none;
+  }
+
+  .gameTopbar .feedback {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .gameTopbar .countryQuestion {
+    margin-top: 0;
+    font-size: clamp(1.45rem, 6vw, 2rem);
+  }
+
+  .gameTopbar .stats {
+    grid-template-columns: minmax(6.5rem, 1.4fr) repeat(3, 1fr);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .gameTopbar .stats .progressStat {
+    grid-column: auto;
+    border-bottom: 0;
+  }
+
+  .gameTopbar .stats div {
+    padding: 0.35rem 0.3rem;
+  }
+
+  .gameTopbar .stats div:nth-child(2) {
+    border-left: 1px solid var(--color-line);
+  }
+
+  .gameTopbar .secondaryButton {
+    position: fixed;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(0.5rem, env(safe-area-inset-bottom));
+    left: max(1rem, env(safe-area-inset-left));
+    z-index: 40;
+    width: auto;
+    min-height: 48px;
+    border-color: var(--color-fg);
+    background: var(--color-bg);
+  }
+
+  .stats {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .stats .progressStat {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .stats div:nth-child(2) {
+    border-left: 0;
+  }
+
+  .mapToolbar {
+    align-items: center;
+  }
+
+  .mapSection {
+    min-height: 0;
+    flex: 1;
+  }
+
+  .mapLoading {
+    min-height: 0;
+    flex: 1;
+  }
+}
+
+@media (max-width: 560px) {
+  .main {
+    padding-bottom: 2.5rem;
+  }
+
+  .centeredPanel {
+    margin-top: 1rem;
+    padding-block: 2.5rem;
+  }
+
+  .stats div {
+    padding-inline: 0.4rem;
+  }
+
+  .stats dt {
+    font-size: 0.66rem;
+  }
+
+  .gameTopbar .stats dt {
+    font-size: 0.6rem;
+  }
+
+  .gameTopbar .stats dd {
+    margin-top: 0.05rem;
+    font-size: 0.82rem;
+  }
+
+  .mapToolbar {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .legend {
+    gap: 0.3rem 0.65rem;
+    font-size: 0.68rem;
+  }
+
+  .legend li {
+    gap: 0.3rem;
+  }
+
+  .resultsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .resultsGrid div:nth-child(3) {
+    border-top: 1px solid var(--color-line);
+    border-left: 0;
+  }
+
+  .resultsGrid div:nth-child(4) {
+    border-top: 1px solid var(--color-line);
+  }
+}
+
+@media (max-width: 760px) and (orientation: landscape) and (max-height: 560px) {
+  .mainPlaying {
+    padding-block:
+      4.75rem
+      max(0.5rem, env(safe-area-inset-bottom));
+  }
+
+  .gameTopbar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.25rem 0.75rem;
+  }
+
+  .gameTopbar .stats {
+    grid-column: 1 / -1;
+  }
+
+  .gameTopbar .secondaryButton {
+    position: static;
+    grid-column: 2;
+    grid-row: 1;
+    width: auto;
+    min-height: 44px;
+  }
+
+  .gameTopbar .countryQuestion {
+    font-size: clamp(1.35rem, 4vw, 1.75rem);
+  }
+
+  .mapFooter {
+    display: none;
+  }
+}
+
+@media (min-width: 761px) and (max-height: 560px) and (pointer: coarse) {
+  .mainPlaying {
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+    padding-left: max(1rem, env(safe-area-inset-left));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skipLink,
+  .backLink,
+  .primaryButton,
+  .secondaryButton,
+  .tertiaryButton,
+  .country {
+    transition-duration: 0.01ms;
+  }
+
+  .wrongOverlay {
+    animation-duration: 0.01ms;
+  }
+}
+
+@media (min-width: 761px) and (max-height: 700px) {
+  .mainPlaying {
+    padding-block: 4.75rem 0.5rem;
+  }
+
+  .mainPlaying .backLink {
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .gameLayout {
+    gap: 0.45rem;
+  }
+
+  .gameTopbar {
+    padding-block: 0.35rem;
+  }
+
+  .gameTopbar .eyebrow {
+    display: none;
+  }
+
+  .gameTopbar .feedback {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .countryQuestion {
+    margin-top: 0;
+    font-size: clamp(1.4rem, 2.5vw, 1.95rem);
+  }
+
+  .gameTopbar .stats div {
+    padding-block: 0.35rem;
+  }
+
+  .mapToolbar {
+    padding-block: 0.35rem;
+  }
+
+  .legend {
+    font-size: 0.68rem;
+  }
+}

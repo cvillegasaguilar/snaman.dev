@@ -26,6 +26,7 @@
   --color-glass-highlight: rgba(255, 255, 255, 0.12);
   --color-grid: rgba(255, 255, 255, 0.06);
   --color-dither: rgba(255, 255, 255, 0.2);
+  color-scheme: dark;
 }
 
 *,
@@ -63,4 +64,21 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.route-loading {
+  display: grid;
+  min-height: 100%;
+  place-items: center;
+  color: var(--color-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    transition-duration: 0.01ms;
+  }
 }

@@ -46,6 +46,19 @@ src/
 └─ index.css     Estilos globales y variables de tema
 ```
 
+## Juego de geografía
+
+La ruta `/geografia` contiene una partida frontend de 195 países: los 193
+Estados miembros de la ONU más Palestina y Ciudad del Vaticano. Los territorios
+dependientes, Kosovo, Taiwán y el Sáhara Occidental aparecen únicamente como
+contexto cartográfico y no forman parte de las preguntas.
+
+Las fronteras proceden de `@svg-maps/world` 2.0.0, publicado con licencia
+CC BY 4.0 y basado en el mapa de MapSVG. El dataset se carga en un chunk
+independiente al comenzar la partida. Los Estados de superficie muy reducida
+mantienen su posición geográfica y reciben un área de interacción transparente
+de 16 px; el mapa también permite ampliar hasta 300 %.
+
 ## Licencia
 
 Uso personal. Todos los derechos reservados.
