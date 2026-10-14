@@ -5,7 +5,7 @@ import styles from "./MapPage.module.css";
 // Mapa personalizado en Google My Maps.
 // Debe estar compartido como "Cualquier persona con el enlace" para que
 // el iframe cargue en el sitio.
-const MY_MAPS_MID = "1GGMBSDTiB2X42CvOJJxAvr9wLN44FSk";
+const MY_MAPS_MID = "1ZsEE7iS8Y1F3XN_mZ3z8xe2lBTu-Ubg";
 
 export default function MapPage() {
   return (
@@ -16,11 +16,14 @@ export default function MapPage() {
           ← Volver al inicio
         </Link>
         <div className={styles.titleBlock}>
-          <h1 className={styles.title}>Cafés de la CDMX</h1>
+          <h1 className={styles.title}>
+            Mapa del Pasaporte del Café de Especialidad CDMX 2026
+          </h1>
           <p className={styles.subtitle}>
-            Un mapa personal de cafeterías en la ciudad: lugares que ya visité, 
-            quiero conocer o tengo guardados para después. 
-            (Aún está medio en construcción xd)
+            Como el pasaporte no está organizado por zonas y no encontré ningún
+            mapa disponible en internet, decidí crear uno. Lo comparto para que
+            cualquiera que quiera usarlo —o se haya encontrado con el mismo
+            problema— pueda consultarlo.
           </p>
         </div>
       </header>
@@ -28,8 +31,8 @@ export default function MapPage() {
       <div className={styles.mapWrap}>
         <iframe
           className={styles.map}
-          title="Mapa de cafés de la CDMX"
-          src={`https://www.google.com/maps/d/embed?mid=${MY_MAPS_MID}`}
+          title="Mapa del Pasaporte del Café de Especialidad CDMX 2026"
+          src={`https://www.google.com/maps/d/u/0/embed?mid=${MY_MAPS_MID}&ehbc=2E312F&noprof=1`}
           loading="lazy"
         />
       </div>

@@ -43,8 +43,8 @@ const techLogos: LogoItem[] = [
 
 const projects = [
   {
-    title: "Bitacora cafeterías CDMX",
-    desc: "Un mapa con las cafeterías que ya visité y las que quiero visitar.",
+    title: "Mapa del Pasaporte del Café de Especialidad CDMX 2026",
+    desc: "Consulta el mapa de cafeterías participantes en el pasaporte 2026.",
     tag: "Web",
     to: "/mapa",
   },
