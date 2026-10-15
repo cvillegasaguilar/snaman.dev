@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import App from "./App";
 import MapPage from "./pages/MapPage";
 import "./index.css";
@@ -19,7 +19,11 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       >
         <Routes>
           <Route path="/" element={<App />} />
-          <Route path="/mapa" element={<MapPage />} />
+          <Route path="/pasaporte-cafe-cdmx-2026" element={<MapPage />} />
+          <Route
+            path="/mapa"
+            element={<Navigate to="/pasaporte-cafe-cdmx-2026" replace />}
+          />
           <Route path="/geografia" element={<GeographyGamePage />} />
         </Routes>
       </Suspense>

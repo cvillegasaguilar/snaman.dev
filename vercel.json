@@ -1,3 +1,10 @@
 {
+  "redirects": [
+    {
+      "source": "/mapa",
+      "destination": "/pasaporte-cafe-cdmx-2026",
+      "permanent": true
+    }
+  ],
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }

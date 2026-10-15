@@ -46,7 +46,7 @@ const projects = [
     title: "Mapa del Pasaporte del Café de Especialidad CDMX 2026",
     desc: "Consulta el mapa de cafeterías participantes en el pasaporte 2026.",
     tag: "Web",
-    to: "/mapa",
+    to: "/pasaporte-cafe-cdmx-2026",
   },
   {
     title: "Encuentra el país",
